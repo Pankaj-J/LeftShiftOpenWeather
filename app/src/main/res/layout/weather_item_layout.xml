@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  >
 
     <data>
 
+        <import  type="com.weatherappforleftshift.currentlocation.DateUtils"/>
+
         <variable
-            name="daytemp"
-            type="com.weatherappforleftshift.currentlocation.model.DayTemp"/>
+            name="daytemp" type="com.weatherappforleftshift.currentlocation.model.DayTemp"/>
+
+
     </data>
 
     <android.support.v7.widget.CardView
@@ -35,7 +39,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(daytemp.date)}" />
+                    android:text="@{DateUtils.getFormattedDate(daytemp.date)}" />
 
             </LinearLayout>
 
@@ -260,6 +264,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/image"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
@@ -267,6 +272,7 @@
 
 
                 <TextView
+                    android:id="@+id/weather_status"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"

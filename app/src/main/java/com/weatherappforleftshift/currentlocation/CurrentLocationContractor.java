@@ -14,10 +14,8 @@ public interface CurrentLocationContractor {
 
     interface View {
 
-        void setLoading(int visibility);
         void showGPSDialog(boolean flag,LocationManager locationManager);
         void initRecyclerViewWithCurrentLocationData(CurrentLocationMain currentLocationMain);
-        void internetError(String msg);
         void showError(String msg);
 
     }
@@ -26,7 +24,6 @@ public interface CurrentLocationContractor {
 
         void checkGPSEnabled(Context context);
         void getDataForRecyclerview(Context context,String Lat,String Lon,String count,String apiID);
-        void checkIntenetError(Context context);
 
     }
 }

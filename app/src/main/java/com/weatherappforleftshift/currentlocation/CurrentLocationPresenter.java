@@ -65,10 +65,6 @@ public class CurrentLocationPresenter implements CurrentLocationContractor.Prese
 
     }
 
-    @Override
-    public void checkIntenetError(Context context) {
-
-    }
 
     public void onError(String msg) {
 

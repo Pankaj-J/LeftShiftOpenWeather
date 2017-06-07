@@ -1,7 +1,6 @@
 package com.weatherappforleftshift.currentlocation;
 
 import android.content.Intent;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.location.Criteria;
 import android.location.Location;
@@ -12,14 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.weatherappforleftshift.R;
 import com.weatherappforleftshift.adapters.CurrentLocationWeatherAdapter;
+import com.weatherappforleftshift.citydata.ChooseCityWeatherActivity;
 import com.weatherappforleftshift.currentlocation.model.CurrentLocationMain;
 import com.weatherappforleftshift.databinding.ActivityMainBinding;
-
 
 
 public class CurrentLocationActivity extends AppCompatActivity implements LocationListener, CurrentLocationContractor.View {
@@ -30,7 +31,7 @@ public class CurrentLocationActivity extends AppCompatActivity implements Locati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(CurrentLocationActivity.this,R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(CurrentLocationActivity.this, R.layout.activity_main);
 
         currentLocationPresenter = new CurrentLocationPresenter(this);
         currentLocationPresenter.checkGPSEnabled(getApplicationContext());
@@ -60,10 +61,6 @@ public class CurrentLocationActivity extends AppCompatActivity implements Locati
 
     }
 
-    @Override
-    public void setLoading(int visibility) {
-
-    }
 
     @Override
     public void showGPSDialog(boolean flag, LocationManager locationManager) {
@@ -87,23 +84,37 @@ public class CurrentLocationActivity extends AppCompatActivity implements Locati
         super.onResume();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.choose_city, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.choose:
+                Intent aboutIntent = new Intent(CurrentLocationActivity.this, ChooseCityWeatherActivity.class);
+                startActivity(aboutIntent);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void initRecyclerViewWithCurrentLocationData(CurrentLocationMain currentLocationMain) {
 
-        Log.v("Current Location--",""+currentLocationMain.getCity().getName());
         binding.setCity(currentLocationMain.getCity());
         binding.setLoc(currentLocationMain.getCity().getLatLong());
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(mLayoutManager);
         CurrentLocationWeatherAdapter currentLocationWeatherAdapter = new CurrentLocationWeatherAdapter(currentLocationMain.getDayTemps());
         binding.recyclerview.setAdapter(currentLocationWeatherAdapter);
-    }
-
-    @Override
-    public void internetError(String msg) {
-
     }
 
     @Override
