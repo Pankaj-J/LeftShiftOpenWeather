@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  >
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,6 +8,10 @@
 
         <variable
             name="daytemp" type="com.weatherappforleftshift.currentlocation.model.DayTemp"/>
+
+        <variable
+            name="weather" type="com.weatherappforleftshift.currentlocation.model.Weather"/>
+
 
 
     </data>
@@ -266,8 +270,10 @@
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="wrap_content"
+                    android:scaleType="centerInside"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:src="@{weather.icon}"
                     android:layout_height="wrap_content" />
 
 
@@ -276,6 +282,7 @@
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:text="@{String.valueOf(weather.desc)}"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>

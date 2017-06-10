@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.weatherappforleftshift.BR;
 import com.weatherappforleftshift.R;
 import com.weatherappforleftshift.currentlocation.model.DayTemp;
+import com.weatherappforleftshift.databinding.WeatherItemLayoutBinding;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class CurrentLocationWeatherAdapter extends RecyclerView.Adapter<CurrentL
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.weather_item_layout, parent, false);
+        WeatherItemLayoutBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.weather_item_layout, parent, false);
         return new ViewHolder(binding);
     }
 
@@ -36,7 +37,9 @@ public class CurrentLocationWeatherAdapter extends RecyclerView.Adapter<CurrentL
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final DayTemp temperatureData = weatherData.get(position);
-        holder.bind(temperatureData);
+        holder.weatherItemLayoutBinding.setDaytemp(temperatureData);
+        holder.weatherItemLayoutBinding.setWeather(temperatureData.getWeathers().get(0));
+        holder.weatherItemLayoutBinding.executePendingBindings();
     }
 
     @Override
@@ -46,19 +49,13 @@ public class CurrentLocationWeatherAdapter extends RecyclerView.Adapter<CurrentL
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        private final ViewDataBinding binding;
+//        private final ViewDataBinding binding;
+        WeatherItemLayoutBinding weatherItemLayoutBinding;
 
-        public ViewHolder(ViewDataBinding binding) {
+        public ViewHolder(WeatherItemLayoutBinding binding) {
             super(binding.getRoot());
-            this.binding = binding;
+            weatherItemLayoutBinding = binding;
         }
-
-        public void bind(Object obj) {
-            binding.setVariable(BR.daytemp, obj);
-            binding.executePendingBindings();
-
-        }
-
 
     }
 }

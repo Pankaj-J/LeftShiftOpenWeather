@@ -12,7 +12,7 @@ public class DateUtils {
     public static String getFormattedDate(long val) {
 
         Date date = new Date(val);
-        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat df2 = new SimpleDateFormat("dd-MMM-yyyy");
         String dateText = df2.format(date);
 
         return dateText;

@@ -12,8 +12,8 @@ import com.squareup.picasso.Picasso;
 
 public class BindingAdapterUtils {
 
-    @BindingAdapter({"bind:imageUrl"})
+    @BindingAdapter({"android:src"})
     public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext()).load(url).into(view);
+        Picasso.with(view.getContext()).load("http://openweathermap.org/img/w/"+url+".png").into(view);
     }
 }

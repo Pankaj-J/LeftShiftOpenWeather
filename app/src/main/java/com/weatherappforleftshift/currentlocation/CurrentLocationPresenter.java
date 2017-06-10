@@ -59,15 +59,9 @@ public class CurrentLocationPresenter implements CurrentLocationContractor.Prese
             @Override
             public void onFailure(Call<CurrentLocationMain> call, Throwable t) {
 
-                onError(t.getMessage());
+                view.showError(t.getMessage());
             }
         });
 
-    }
-
-
-    public void onError(String msg) {
-
-        view.showError(msg);
     }
 }
